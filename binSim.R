@@ -7,7 +7,7 @@ set.seed(2121)
 n <- 1e5
 beta0 <- 1.5
 beta1 <- 1
-beta2 <- 0.75
+beta2 <- 2
 
 pop <- tibble(NULL
 	, x1 = rnorm(n)

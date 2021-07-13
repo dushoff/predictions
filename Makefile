@@ -15,11 +15,15 @@ Sources += $(wildcard *.R)
 
 autopipeR = defined
 
+## Simulate binomial data with two fixed effects
 binSim.Rout: binSim.R
+
+## bin the data to get points for comparison
+binbin.Rout: binbin.R binSim.rds
 
 binEff.Rout: binEff.R binSim.rds
 
-binpix.Rout: binpix.R binEff.rds
+binpix.Rout: binpix.R binEff.rds binbin.rds
 
 ######################################################################
 

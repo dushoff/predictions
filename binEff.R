@@ -19,17 +19,25 @@ qdat <- (dat
 
 cent <- qdat %>% mutate(x2 = mean(x2))
 cent <- (cent
-	%>% mutate(pred = , lc = predict(mod, newdata=cent)
-	STOP!!
-)
-pred <- tibble(NULL
-	, x = pull(qdat, x1)
-	, lc = predict(mod, newdata=cent)
-	, pc = plogis(lc)
-	, lx = predict(mod, newdata=cross)
-	, px = plogis(lx)
+	%>% mutate(NULL
+		, pred = predict(mod, newdata=., type="response")
+		## , method = "centered"
+	)
+	%>% select(-x2)
 )
 
-cross <- qdat %>% expand(x1, x2)
+cross <- (qdat
+	%>% expand(x1, x2)
+	%>% mutate(NULL
+		, pred = predict(mod, newdata=., type="response")
+		## , method = "crossed"
+	)
+	%>% group_by(x1)
+	%>% summarize(pred=mean(pred))
+)
 
-rdsSave(qdat)
+pred <- bind_rows(centered=cent, crossed=cross, .id="method")
+
+summary(pred)
+
+rdsSave(pred)
