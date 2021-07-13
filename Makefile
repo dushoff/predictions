@@ -21,8 +21,10 @@ binSim.Rout: binSim.R
 ## bin the data to get points for comparison
 binbin.Rout: binbin.R binSim.rds
 
+## Calculate effects: centered (naive) and crossed (brute-force bias-correction)
 binEff.Rout: binEff.R binSim.rds
 
+## Picture with effecgts and binned data
 binpix.Rout: binpix.R binEff.rds binbin.rds
 
 ######################################################################
